@@ -48,6 +48,11 @@ everything.
 7. **Access is granted per user or group, as Read or Write.** Many people can hold
    either on the same material. Read-only is enforced where it matters: the
    server refuses the upload.
+8. **Revoking access stops the flow; it does not reach back.** From the moment
+   someone loses access, the server sends them nothing new and accepts nothing
+   from them. What their device already holds — including the full history of
+   the material up to that point — stays there; the server cannot delete it and
+   does not pretend to. The UI says so when access is narrowed.
 
 ## Considered options
 
