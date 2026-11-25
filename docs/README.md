@@ -36,16 +36,17 @@ needs no permission. Read them in this order.
 | [12 — Maths](specs/12-math-input-spec.md) | The linear input grammar, how it builds into notation, and what gets stored |
 | [13 — Ink](specs/13-ink-data-spec.md) | Stroke capture, storage and InkML interchange |
 | [14 — MCP API](specs/14-external-api-mcp.md) | The contract with programs that read or write notes. §2's rule — the file format *is* the API — is what keeps it from drifting |
+| [15 — School server protocol](specs/15-server-protocol.md) | **Draft.** The optional server transport: how logs, blobs and media move over HTTPS, and how grants, courses and assignments are enforced without the server reading an op |
 
-**There is no sync protocol specification, and there does not need to be one.**
+**Folder and git sync need no protocol of their own.**
 [ADR-0006](adr/ADR-0006-sync-transport-and-text-model.md) replaced a CRDT relay
 with an append-only log in files that any ordinary folder-sync service
-replicates. There is no wire protocol until somebody wants a *server* transport.
-The format spec §3 covers what exists.
+replicates, and the format spec §3 covers it. The one wire protocol is for the
+optional *server* transport ([spec 15](specs/15-server-protocol.md), a draft).
 
 ## Decisions
 
-[Architecture Decision Records](adr/README.md) — eight of them, each with the
+[Architecture Decision Records](adr/README.md) — eleven of them, each with the
 context, the options weighed, the consequences, and the triggers that would reopen
 it. The index says where each one stands, including the two that were not
 implemented and the one whose shipped feature is a knowing compromise.

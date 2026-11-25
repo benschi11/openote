@@ -2,7 +2,8 @@
 
 > **Status:** Accepted as a direction (2026-11-25, grilling session). **Not built.**
 > The unit a permission attaches to is [ADR-0010](ADR-0010-permissions-per-notebook.md);
-> assignments and submissions are [ADR-0011](ADR-0011-assignments-and-submission-notebooks.md).
+> assignments and submissions are [ADR-0011](ADR-0011-assignments-and-submission-notebooks.md);
+> the wire protocol is [spec 15](../specs/15-server-protocol.md).
 > **Related:** [ADR-0006](ADR-0006-sync-transport-and-text-model.md) (op log; §8 "never talks to a cloud API") · [ADR-0008](ADR-0008-page-protection.md) (why a client-side gate is theatre) · [ADR-0005](ADR-0005-licensing.md) (licensing)
 
 ## Context
@@ -70,9 +71,10 @@ everything.
     attach it to a folder or git remote, so its data does not leave by a path the
     server cannot see. (A determined user can still copy files; the server
     refuses logs it did not expect, so that copy cannot write back.)
-12. **Every device id is bound to one user.** The first upload for a device id
-    binds it to the uploading account; any other account's upload under that id is
-    refused. The client derives **a device id per (install, server account)**, so
+12. **Every device id is bound to one user.** A client registers a device id
+    before using it, which binds it to that account; any other account's upload
+    under that id is refused. Logs that predate the server are imported at
+    publish, bound to the publisher and closed to further appends. The client derives **a device id per (install, server account)**, so
     two students sharing a lab PC are two writers, not one forked identity
     (ADR-0006 §6a.2). On a shared PC, signing out removes that account's server
     notebooks; this is a setting.

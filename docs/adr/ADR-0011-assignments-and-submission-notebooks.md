@@ -1,7 +1,12 @@
 # ADR-0011: Assignments, a Submit grant, and one submission notebook per course
 
 > **Status:** Accepted (2026-11-25, grilling session). **Not built.**
-> **Refines** [ADR-0009](ADR-0009-optional-school-server.md) and [ADR-0010](ADR-0010-permissions-per-notebook.md).
+> **Refines** [ADR-0009](ADR-0009-optional-school-server.md) and [ADR-0010](ADR-0010-permissions-per-notebook.md). Wire format: [protocol spec §9](../specs/15-server-protocol.md).
+>
+> **Amended 2026-11-25 (protocol spec).** First drafted as pinning to a `seq` the
+> client reports. Changed to a **byte offset the server records**: a tampering
+> client could later append a line with a smaller `seq`, but cannot move bytes
+> before an offset the server already holds — and the server still reads no op.
 
 ## Context
 
@@ -24,10 +29,10 @@ mean thirty notebooks.
 3. **Handing in is a copy plus an explicit call.** The client copies the page,
    with fresh ids, into its own log in the submission notebook (the
    cross-notebook copy ADR-0010 needs anyway), uploads, then calls
-   `submit(assignment, page, seq)`. The server records its own clock time and that
-   `seq`.
-4. **A submission is pinned to that `seq`.** The teacher's client applies a
-   student's ops to a submitted page only up to the recorded `seq`, and only to
+   `submit(assignment, page)`. The server records its own clock time and **its own
+   length of that log, in bytes**.
+4. **A submission is pinned to that byte length.** The teacher's client applies a
+   student's ops to a submitted page only up to the recorded offset, and only to
    pages that student's log created. A later edit — or a tampering client
    writing to someone else's page id — never shows. Handing in again creates a
    new **version**; the teacher sees all of them.
