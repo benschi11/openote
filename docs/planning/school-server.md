@@ -62,9 +62,9 @@ Write could change that feedback. So there is also a hand-in workflow:
   file**. A student may upload their own device log and is served only that —
   never other students' logs. The server still reads no content.
 - **Handing in** = the client copies the page (fresh ids) into its own log there,
-  then calls `submit(assignment, page, seq)`. The server records its own time and
-  that `seq`.
-- **A submission is pinned to that `seq`**: the teacher's client shows the
+  then calls `submit(assignment, page)`. The server records its own time and
+  its own byte length of that log.
+- **A submission is pinned to that byte offset**: the teacher's client shows the
   student's ops only up to it, and only on pages that student created. Later
   edits or tampering never show. Handing in again creates a new version.
 - **Late is marked, not refused** (server clock); a teacher can close an
@@ -123,7 +123,7 @@ Write could change that feedback. So there is also a hand-in workflow:
 - Proposed as **its own repository** (working name `openote-server`) — to be
   agreed with the maintainer. The client half (server transport, sign-in, Share
   dialog, cross-notebook copy) has to live in this repo regardless.
-- The contract is a spec, **`docs/specs/15-server-protocol.md`**, next to the file
+- The contract is a spec, **[`docs/specs/15-server-protocol.md`](../specs/15-server-protocol.md)** (draft), next to the file
   format, so neither side's code is the authority.
 
 ## Implementation order
