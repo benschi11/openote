@@ -21,6 +21,7 @@ replaced outright gets a new ADR that links back, and this one is marked
 | [0008](ADR-0008-page-protection.md) | Page protection: **encryption, not a locked door** | Designed. A passcode gate ships instead, and says so |
 | [0009](ADR-0009-optional-school-server.md) | School server: **an optional transport that enforces permissions** | Direction accepted. Being designed |
 | [0010](ADR-0010-permissions-per-notebook.md) | Permissions attach to **whole notebooks**, not sections or pages | Accepted for v1. Not built |
+| [0011](ADR-0011-assignments-and-submission-notebooks.md) | Assignments: **one submission notebook per course**, a write-only **Submit** grant, snapshots pinned by `seq` | Accepted. Not built |
 
 The two worth reading before touching storage are **0006** (where the durable
 bytes live) and **0007** (why nothing deletes them yet).

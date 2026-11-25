@@ -1,7 +1,8 @@
 # ADR-0009: An optional school server, as a sync transport that enforces permissions
 
 > **Status:** Accepted as a direction (2026-11-25, grilling session). **Not built.**
-> The unit a permission attaches to is [ADR-0010](ADR-0010-permissions-per-notebook.md).
+> The unit a permission attaches to is [ADR-0010](ADR-0010-permissions-per-notebook.md);
+> assignments and submissions are [ADR-0011](ADR-0011-assignments-and-submission-notebooks.md).
 > **Related:** [ADR-0006](ADR-0006-sync-transport-and-text-model.md) (op log; §8 "never talks to a cloud API") · [ADR-0008](ADR-0008-page-protection.md) (why a client-side gate is theatre) · [ADR-0005](ADR-0005-licensing.md) (licensing)
 
 ## Context
@@ -64,6 +65,34 @@ everything.
     regardless of how people sign in. Syncing groups from Entra ID (needs Graph
     permissions and the school's admin consent) or LDAP is a later, optional
     addition on top, not a replacement.
+
+11. **A server notebook syncs only through the server.** The client will not also
+    attach it to a folder or git remote, so its data does not leave by a path the
+    server cannot see. (A determined user can still copy files; the server
+    refuses logs it did not expect, so that copy cannot write back.)
+12. **Every device id is bound to one user.** The first upload for a device id
+    binds it to the uploading account; any other account's upload under that id is
+    refused. The client derives **a device id per (install, server account)**, so
+    two students sharing a lab PC are two writers, not one forked identity
+    (ADR-0006 §6a.2). On a shared PC, signing out removes that account's server
+    notebooks; this is a setting.
+13. **The server is the only identity provider the client knows.** The school
+    registers its server once with Entra ID; the client signs in to the server
+    (system browser, OAuth with PKCE, loopback redirect) and receives the
+    server's own tokens. The server federates to Entra ID, checks LDAPS, or a
+    local password. Openote ships no vendor client id or secret — the objection
+    of ADR-0006 §8 does not arise.
+14. **Administration lives in a web UI on the server** (accounts, **Groups**, CSV
+    import, bulk creation of per-student notebooks, settings). **Grants** and
+    **Courses** are edited in the Openote client's Share dialog.
+15. **A notebook reaches the server by being published** from the client's sync
+    dialog; others add the notebooks they hold a Grant on from a server list.
+16. **On Revocation the client removes its local copy**, after saying so and
+    offering an export of anything unsent. Courtesy, not security.
+17. **Per-student notebooks** are created with the student at Write and the
+    creating teacher at Owner, so the teacher can write feedback onto the
+    student's pages. The client shows who wrote what (from the device→user
+    binding), so a student changing a teacher's feedback is visible in history.
 
 ## Considered options
 

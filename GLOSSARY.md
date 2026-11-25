@@ -50,3 +50,25 @@ _Avoid_: Admin, manager
 **Revocation**:
 Taking a **Grant** away: from then on nothing new flows to or from its former holder, while what they already received stays with them.
 _Avoid_: Unshare, delete access
+
+**Submit**:
+A **Grant** on a **Submission Notebook** that lets its holder hand in work and see only what they themselves handed in.
+_Avoid_: Write-only, drop box access
+
+## Assignments
+
+**Assignment**:
+A task a **Teacher** sets for a **Course**, with a due date and a template page each **Student** works on in their own notebook.
+_Avoid_: Task, homework, Aufgabe (in code)
+
+**Submission Notebook**:
+The one notebook per **Course** into which **Students** hand in their work for every **Assignment**.
+_Avoid_: Drop box, Abgabeordner, inbox
+
+**Submission**:
+A frozen copy of a **Student**'s page, handed in for an **Assignment**; handing in again makes a new version, never changes an old one.
+_Avoid_: Hand-in, upload, Abgabe (in code)
+
+**Return**:
+Sending a **Teacher**'s annotated copy of a **Submission** back into the **Student**'s own notebook.
+_Avoid_: Feedback (as a verb), grade
