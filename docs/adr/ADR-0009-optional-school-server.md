@@ -36,7 +36,18 @@ everything.
    container. No multi-tenancy: pupils' data stays on the school's own
    infrastructure, which keeps the data-protection (GDPR/DSGVO) story simple.
 4. **A separate project**, licensed AGPL-3.0-or-later like the app, with client
-   changes kept small and optional so they could be offered upstream.
+   changes kept small and optional so they could be offered upstream. Whether it
+   is a separate repository is still open, pending a conversation with the
+   upstream maintainer.
+5. **Sign-in from the start: local accounts and Microsoft Entra ID (OIDC)**, with
+   LDAPS designed for but not necessarily built first. Most Austrian schools
+   already run Microsoft 365, so a school without Entra is the exception, not
+   the rule — but a school without any directory must still work.
+6. **HTTPS only.** The client refuses a plain-`http` server address, except for
+   `localhost` during development.
+7. **Access is granted per user or group, as Read or Write.** Many people can hold
+   either on the same material. Read-only is enforced where it matters: the
+   server refuses the upload.
 
 ## Considered options
 
