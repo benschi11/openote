@@ -19,6 +19,7 @@ replaced outright gets a new ADR that links back, and this one is marked
 | [0006](ADR-0006-sync-transport-and-text-model.md) | Sync: **append-only per-device op log** in a `.onotebook` directory | Transport built. **The text model it asks for is not** |
 | [0007](ADR-0007-blob-lifecycle.md) | Blob collection: **a grace period, not a handshake** | Designed. **Nothing has ever deleted a blob** |
 | [0008](ADR-0008-page-protection.md) | Page protection: **encryption, not a locked door** | Designed. A passcode gate ships instead, and says so |
+| [0009](ADR-0009-optional-school-server.md) | School server: **an optional transport that enforces permissions** | Direction accepted. Being designed |
 
 The two worth reading before touching storage are **0006** (where the durable
 bytes live) and **0007** (why nothing deletes them yet).
