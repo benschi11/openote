@@ -94,6 +94,26 @@ everything.
     student's pages. The client shows who wrote what (from the device→user
     binding), so a student changing a teacher's feedback is visible in history.
 
+18. **Storage: op logs and blobs on disk in the `.onotebook` layout**, one
+    directory per notebook, so a backup is an ordinary folder Openote can open
+    without the server. Accounts, Groups, Grants, Assignments and device bindings
+    live in a database through EF Core — **SQLite by default**, PostgreSQL as an
+    option. Shipped as one container image with one data volume.
+19. **Blobs are scoped per notebook.** A blob is served only to someone who may
+    read a notebook it was uploaded to (under Submit: only from their own log),
+    so a hash cannot be used to probe what exists on the server. Bytes may be
+    stored once internally; the access check is per notebook.
+20. **Nothing on the server is private from teachers.** Whatever is on the
+    server is visible to at least one Teacher with Owner. A student's private
+    notes stay in local notebooks, and students are told so.
+21. **Transport v1 is HTTPS request/response** (list logs and their `seq`
+    high-water marks, fetch missing ranges, append own ops, blobs by hash), with
+    push notifications (SignalR) as a later addition. The protocol stays usable
+    from a browser — CORS, bearer tokens, no filesystem assumptions — though a
+    browser client is not part of v1.
+22. **No grades in v1.** Assignments carry status and on-page feedback only;
+    marks belong in the school's existing systems.
+
 ## Considered options
 
 - **Server as source of truth (REST CRUD on pages).** Rejected: it contradicts
