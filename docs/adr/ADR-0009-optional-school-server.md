@@ -114,6 +114,37 @@ everything.
 22. **No grades in v1.** Assignments carry status and on-page feedback only;
     marks belong in the school's existing systems.
 
+23. **Offline edits the server refuses are kept, never dropped.** If a Grant
+    narrowed while a client was offline, the refused ops stay in its local log;
+    the client then holds the notebook read-only, says how many changes did not
+    reach the server, and offers to copy the affected pages into a local notebook.
+24. **Sessions: one-hour access tokens, 30-day sliding refresh tokens.** Working
+    offline needs no token at all; an Admin can end all of an account's sessions
+    at once (a lost laptop).
+25. **A Course is a server entity**: a name, a Group, its Teachers, its notebooks
+    and its Submission Notebook. The client shows it as a folder in the sidebar.
+26. **Lifecycle across school years.** Archiving a Course turns every student's
+    Write and Submit into Read and hides it from the default view; nothing is
+    deleted. A departing student's account is deactivated, which is a
+    Revocation; a departing teacher's Owner grants can be transferred by an
+    Admin. Deletion is explicit, by an Admin, after a configurable retention.
+27. **Stack: .NET 10 (LTS)** — ASP.NET Core minimal APIs, EF Core, ASP.NET Core
+    Identity with OpenIddict as the server's own OIDC provider, Blazor for the
+    admin UI.
+
+## Implementation order
+
+Each step is usable on its own.
+
+1. The protocol specification, `docs/specs/15-server-protocol.md`.
+2. Server core — local accounts, Groups, notebooks with Read/Write/Owner, sync
+   over HTTPS — and in the client: the server as a transport, sign-in, publish
+   and add, read-only open. *This alone covers handing material to a class.*
+3. Microsoft Entra ID sign-in.
+4. Copying between notebooks, Courses, per-student notebooks.
+5. Assignments (ADR-0011): Submit, hand in, return.
+6. LDAPS, group sync from Entra ID / LDAP, SignalR push.
+
 ## Considered options
 
 - **Server as source of truth (REST CRUD on pages).** Rejected: it contradicts
